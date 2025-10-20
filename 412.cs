@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace ConsoleApp3
 {
@@ -11,6 +12,18 @@ namespace ConsoleApp3
         static void Main()
         {
             int tmp = 0;
+            //BigInteger bigNumber = BigInteger.Parse("1828497431380096579630069"); //NO DIVISORS!!!!!!!! 14 minutes gone...
+            BigInteger bigNumber1 = BigInteger.Parse("214769443120931514639320840852363");
+            for (int i = 9999999; i > 0; i--)
+            {
+                BigInteger divisor = BigInteger.Parse(i.ToString());
+                if (divisor % 2 != 0)
+                    if (bigNumber1 % divisor == 0)
+                    {
+                        Console.WriteLine(i + " sigma");
+                        break;
+                    }
+            }
 
             for (int i = 999999; i > 99999; i--)
             {
@@ -60,23 +73,57 @@ namespace ConsoleApp3
             { 41, "6" }, { 42, "7" }, { 43, "8" }, { 44, "9" }, { 45, "0" }
         };
 
-            string cipherText = "011415142513152119270601063337392827011805272008052702051920197"; //Big numnber / by key
+            string cipherText1 = "011415142513152119270601063337392827011805272008052702051920197"; //Big numnber / by key (999371)
+            string cipherText2 = "1805032015182721204965"; //Big numnber / by key (1013)
+            string cipherText3 = "212013270603091327383337453951"; //Big numnber / by key (1013)
             int blockSize = 2;
 
 
             string decodedMessage = "";
 
-            for (int i = 0; i < cipherText.Length; i += blockSize)
+            for (int i = 0; i < cipherText1.Length; i += blockSize)
             {
-                if (i + blockSize > cipherText.Length)
+                if (i + blockSize > cipherText1.Length)
                     break;
 
-                string block = cipherText.Substring(i, blockSize);
+                string block = cipherText1.Substring(i, blockSize);
                 int num = int.Parse(block);
 
-                decodedMessage += table[num];
+                if (num <= 45)
+                    decodedMessage += table[num];
 
-                
+
+            }
+            Console.WriteLine("Decoded Message: " + decodedMessage);
+            decodedMessage = "";
+            for (int i = 0; i < cipherText2.Length; i += blockSize)
+            {
+                if (i + blockSize > cipherText2.Length)
+                    break;
+
+                string block = cipherText2.Substring(i, blockSize);
+                int num = int.Parse(block);
+
+                if (num <= 45)
+                    decodedMessage += table[num];
+
+
+            }
+            Console.WriteLine("Decoded Message: " + decodedMessage);
+            decodedMessage = "";
+            for (int i = 0; i < cipherText3.Length; i += blockSize)
+            {
+                if (i + blockSize > cipherText3.Length)
+                    break;
+
+                string block = cipherText3.Substring(i, blockSize);
+                int num = int.Parse(block);
+
+
+                if (num <= 45)
+                    decodedMessage += table[num];
+
+
             }
 
             Console.WriteLine("Decoded Message: " + decodedMessage);
